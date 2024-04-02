@@ -2,7 +2,7 @@
 
 var connection = new signalR.HubConnectionBuilder()
     .withUrl("/chatHub")
-    //.withUrl("https://signalrexample220240401181241.azurewebsites.net/chatHub")
+    //.withUrl("https://signalrexample220240401181241.azurewebsites.net/chatHub", "credential: same-origin")
     .withAutomaticReconnect([0, 0, 10000])
     .build();
 

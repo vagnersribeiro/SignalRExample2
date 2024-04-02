@@ -2,21 +2,26 @@ using SignalRChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAnyOriginPolicy",
+    options.AddPolicy("CorsPolicy",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.AllowAnyHeader()
                    .AllowAnyMethod()
-                   .AllowAnyHeader();
+                   .SetIsOriginAllowed((host) => true)
+                   .AllowCredentials();
+
         });
 });
 
+// Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
+
 var app = builder.Build();
+
+app.UseCors("CorsPolicy");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -28,13 +33,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCors("AllowAnyOriginPolicy");
 
 app.UseRouting();
 
-//app.UseAuthorization();
+app.UseAuthorization();
 
 app.MapRazorPages();
+
 app.MapHub<ChatHub>("/chatHub");
 app.MapHub<TextEditorHub>("/textEditorHub");
 
