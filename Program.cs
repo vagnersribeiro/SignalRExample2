@@ -13,8 +13,7 @@ builder.Services.AddCors(options =>
             //builder.AllowAnyOrigin()
             builder.WithOrigins("https://localhost:7003/")
                    .AllowAnyMethod()
-                   .AllowAnyHeader()
-                   .AllowCredentials();
+                   .AllowAnyHeader();
         });
 });
 
@@ -34,7 +33,7 @@ app.UseCors("AllowAnyOriginPolicy");
 
 app.UseRouting();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapHub<ChatHub>("/chatHub");
