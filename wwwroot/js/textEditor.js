@@ -13,6 +13,7 @@ connection.on("ReceiveChanges", function (user, newText) {
 
 connection.start().then(function () {
     document.getElementById("textEditor").disabled = false;
+    connection.invoke("CreateOrGetExisting", 1);
 }).catch(function (err) {
     return console.error(err.toString());
 });

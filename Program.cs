@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using SignalRChat.Hubs;
+using SignalRExample2.Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,13 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 builder.Services.AddSignalR();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseInMemoryDatabase("DbMemory"));
+
+
 
 var app = builder.Build();
 
