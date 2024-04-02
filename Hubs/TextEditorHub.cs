@@ -12,7 +12,7 @@ public class TextEditorHub : Hub
         _context = context; 
     }
 
-    public async Task Create(int id)
+    public async Task CreateOrGetExisting(int id)
     {
         var pauta = this._context.Pautas.FirstOrDefault(x => x.Id == id);
 
